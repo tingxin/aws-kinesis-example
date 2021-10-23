@@ -20,13 +20,13 @@ def generate(stream_name, kinesis_client):
         kinesis_client.put_record(
             StreamName=stream_name,
             Data=json.dumps(data),
-            PartitionKey="partitionkey")
+            PartitionKey="partition_key")
         time.sleep(SEND_INTERVAL * 0.001)
 
 
 if __name__ == '__main__':
     session = boto3.Session(aws_access_key_id=AWS_ACCESS_KEY_ID,
-                            aws_secret_access_key=AWS_SECRET_ACCESS_key)
-    c = session.client('kinesis', region_name='cn-northwest-1')
+                            aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    c = session.client('kinesis', region_name=REGION)
 
-    generate(STREAM_NAME, session.client('kinesis', region_name=REGION))
+    generate(STREAM_NAME, c)
