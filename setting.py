@@ -1,6 +1,7 @@
-AWS_ACCESS_KEY_ID = 'your access key id'
-AWS_SECRET_ACCESS_KEY = 'your secret key'
+AWS_ACCESS_KEY_ID = 'AKIAQMS6D5EI3FOTFUE4'
+AWS_SECRET_ACCESS_KEY = ''
 STREAM_NAME = "mock-stock-price-ds"
+STREAM2_NAME = "mock-stock-tx-ds"
 REGION = 'cn-northwest-1'
 # 发送间隔，毫秒数s
 SEND_INTERVAL = 1000
