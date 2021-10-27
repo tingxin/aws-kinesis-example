@@ -33,13 +33,14 @@ if __name__ == '__main__':
         data1 = get_price_data(interval1)
         interval2 = random.randint(0, 10) - 5
         data2 = get_tx_data(interval2)
-        kinesis_client.put_record(
+        status1 = kinesis_client.put_record(
             StreamName=STREAM_NAME,
             Data=json.dumps(data1),
             PartitionKey="partition_key")
-
-        kinesis_client.put_record(
+        print(status1)
+        status2 = kinesis_client.put_record(
             StreamName=STREAM2_NAME,
             Data=json.dumps(data2),
             PartitionKey="partition_key")
+        print(status2)
         time.sleep(SEND_INTERVAL * 0.001)
