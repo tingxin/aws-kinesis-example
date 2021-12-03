@@ -8,10 +8,10 @@ if __name__ == '__main__':
     kinesis_client = session.client('kinesis', region_name=REGION)
     response = kinesis_client.describe_stream(StreamName=STREAM_NAME)
     shard_id = response['StreamDescription']['Shards'][0]['ShardId']
+    print(response['StreamDescription']['Shards'])
     shard_iterator = kinesis_client.get_shard_iterator(StreamName=STREAM_NAME,
                                                        ShardId=shard_id,
-                                                       ShardIteratorType='AT_TIMESTAMP',
-                                                       Timestamp=1636090190.000)
+                                                       ShardIteratorType='LATEST')
     my_shard_iterator = shard_iterator['ShardIterator']
     record_response = kinesis_client.get_records(ShardIterator=my_shard_iterator, Limit=100)
     while 'NextShardIterator' in record_response:
