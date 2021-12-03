@@ -27,4 +27,4 @@ if __name__ == '__main__':
             Data=json.dumps(data1),
             PartitionKey="partition_key")
         print(status1)
-        time.sleep(0.5)
+        time.sleep(SEND_INTERVAL)
