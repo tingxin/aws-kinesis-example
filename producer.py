@@ -7,8 +7,13 @@ import time
 
 
 def get_price_data(interval):
-    ts = datetime.now() + timedelta(seconds=interval)
+    ts = datetime.now() + timedelta(seconds=interval) + timedelta(days=-2)
     return {
+        'partition_key': "{0}/{1}".format(random.choice(['ORDER', 'FINANCE']), ts.strftime("%Y/%m/%d")),
+        'type': random.choice(['ORDER', 'FINANCE']),
+        'year': ts.strftime("%Y"),
+        'month': ts.strftime("%m"),
+        'day': ts.strftime("%d"),
         'event_time': ts.strftime("%Y-%m-%d %H:%M:%S"),
         'name': random.choice(['AAPL', 'AMZN', 'MSFT', 'GOOG', 'FB']),
         'price': round(random.random() * 2000 + 100, 2)}
@@ -25,6 +30,6 @@ if __name__ == '__main__':
         status1 = kinesis_client.put_record(
             StreamName=STREAM_NAME,
             Data=json.dumps(data1),
-            PartitionKey="partition_key")
+            PartitionKey=data1["partition_key"])
         print(status1)
-        time.sleep(SEND_INTERVAL)
+        time.sleep(SEND_INTERVAL / 1000)
